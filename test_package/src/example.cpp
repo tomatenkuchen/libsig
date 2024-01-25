@@ -1,12 +1,8 @@
-#include "libsig.h"
-#include <vector>
-#include <string>
+#include "libsig.hpp"
 
 int main() {
-    libsig();
+    pid = sig::PIDController({.1, .2, .3, 100.0, 0.0});
+    pid.update(1.0);
 
-    std::vector<std::string> vec;
-    vec.push_back("test_package");
-
-    libsig_print_vector(vec);
+    return pid.value();
 }
