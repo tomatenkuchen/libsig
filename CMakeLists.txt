@@ -14,15 +14,7 @@ project(${CONAN_PROJECT_NAME}
 
 ###############################################################################
 # find dependencies
-find_program(CMAKE_CXX_CPPCHECK cppcheck REQUIRED)
 find_package(mp-units REQUIRED)
-
-# cppcheck configuration
-list(
-    APPEND CMAKE_CXX_CPPCHECK
-      "--enable=all"
-      "-cppcheck-build-dir=${CMAKE_BINARY_DIR}"
-)
 
 ###############################################################################
 # config target

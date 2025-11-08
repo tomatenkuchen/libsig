@@ -12,13 +12,13 @@ project(PackageTest CXX)
 # find dependencies
 find_program(CMAKE_CXX_CPPCHECK cppcheck REQUIRED)
 find_package(libsig CONFIG REQUIRED)
-find_package(Catch REQUIRED)
+find_package(Catch2 REQUIRED)
 
 # cppcheck configuration
 list(
     APPEND CMAKE_CXX_CPPCHECK
       "--enable=all"
-      "-cppcheck-build-dir=${CMAKE_BINARY_DIR}"
+      "--cppcheck-build-dir=${CMAKE_BINARY_DIR}"
 )
 
 ###############################################################################
@@ -37,5 +37,10 @@ target_compile_features(test
 target_link_libraries(test
   PRIVATE
     libsig::libsig
-    Catch::CatchWithMain
+    Catch2::Catch2WithMain
 )
+
+###############################################################################
+# tests
+include(CTest)
+add_test(NAME test COMMAND test)

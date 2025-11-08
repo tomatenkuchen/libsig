@@ -45,7 +45,6 @@ class libsigRecipe(ConanFile):
     def requirements(self):
         self.tool_requires("cmake/4.1.2")
         self.tool_requires("ninja/1.13.1")
-        self.tool_requires("cppcheck/2.18.3")
         self.requires("mp-units/2.4.0")
 
     def layout(self):
