@@ -17,7 +17,7 @@ project(${CONAN_PROJECT_NAME}
 find_program(CMAKE_CXX_CPPCHECK cppcheck REQUIRED)
 find_package(mp-units REQUIRED)
 
-cppcheck configuration
+# cppcheck configuration
 list(
     APPEND CMAKE_CXX_CPPCHECK
       "--enable=all"
