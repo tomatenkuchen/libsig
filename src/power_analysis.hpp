@@ -2,12 +2,6 @@
 #include <units/isq/si/power.h>
 #include <units/isq/si/voltage.h>
 
-#include <concepts>
-#include <ranges>
-#include <cstdint>
-#include <ranges>
-#include <cmath>
-
 using namespace units::isq;
 using namespace units::aliases::isq::si;
 
@@ -19,10 +13,9 @@ namespace sig {
  * @param currents range of current data, assumed to be the same size of voltages
  * @return struct of rms voltage, rmx current and complex power */
 template <typename T>
-W<T> compute_active_power(std::vector<V<T>> const& voltages,
-                           std::vector<A<T>> const& currents) {
+W<T> compute_active_power(std::vector<V<T>> const& voltages, std::vector<A<T>> const& currents) {
   W<T> P(0);
-  for(int i = 0; auto const & v : voltages){
+  for (int i = 0; auto const& v : voltages) {
     P += v * currents[i];
     i++;
   }
@@ -32,7 +25,7 @@ W<T> compute_active_power(std::vector<V<T>> const& voltages,
 template <typename T>
 V<T> rms_voltage(std::vector<V<T>> const& voltages) {
   T v_rms = 0;
-  for(auto const& v: voltages){
+  for (auto const& v : voltages) {
     v_rms += (v * v).number();
   }
   v_rms /= voltages.size();
@@ -42,7 +35,7 @@ V<T> rms_voltage(std::vector<V<T>> const& voltages) {
 template <typename T>
 A<T> rms_current(std::vector<A<T>> const& currents) {
   T i_rms = 0;
-  for(auto const& i: currents){
+  for (auto const& i : currents) {
     i_rms += (i * i).number();
   }
   i_rms /= currents.size();

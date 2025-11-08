@@ -6,20 +6,17 @@
  * @license MIT
  */
 
-#include <cstdint>
-#include <limits>
 #include <concepts>
 
 /**
  * @brief controller class
  */
-
 template <typename T>
   requires std::integral<T> || std::floating_point<T>
 class ControllerPID {
- public: 
+ public:
   /** @brief Limit structure to define maximum output of controller */
-  struct Limits{
+  struct Limits {
     T max;
     T min;
   };
@@ -28,7 +25,7 @@ class ControllerPID {
    * @param K_i amplification factor for integral channel
    * @param i-channel-init initial value of integrator
    */
-  struct ChannelConfig{
+  struct ChannelConfig {
     T K;
     T channel_init;
   };
@@ -47,9 +44,7 @@ class ControllerPID {
    * @param lim limits for outputs
    * @param cfg_i amplification I-channel (integral)
    * @param cfg_d amplification D-channel (derivative) */
-  ControllerPID(T K_p,
-                Limits lim = {std::numeric_limits<T>::max(),
-                              std::numeric_limits<T>::min()},
+  ControllerPID(T K_p, Limits lim = {std::numeric_limits<T>::max(), std::numeric_limits<T>::min()},
                 ChannelConfig cfg_i = {0, 0}, ChannelConfig cfg_d = {0, 0})
       : i_state{cfg_i.channel_init},
         d_state{cfg_d.channel_init},
@@ -63,8 +58,9 @@ class ControllerPID {
   ControllerPID& operator=(ControllerPID const&) = default;
   ControllerPID& operator=(ControllerPID&&) = default;
 
-  /** 
-   * @brief operates a new control step on the new data. needs to be exectued in constant time stamps 
+  /**
+   * @brief operates a new control step on the new data. needs to be exectued in constant time
+   * stamps
    * @param e difference between set point and measured value -> control error */
   T update(T e) {
     // p-channel
@@ -91,7 +87,7 @@ class ControllerPID {
     d_state = cfg_d.channel_init;
   }
 
-  private:
+ private:
   /** state variable for i-channel */
   T i_state;
   /** state variable for d-channel */
@@ -101,7 +97,6 @@ class ControllerPID {
 
   /** @brief returns input when input is within limits. returns limit if not */
   static T crop_to_limits(T input, Limits limits) {
-    return (input > limits.max ? limits.max
-                               : (input < limits.min ? limits.min : input));
+    return (input > limits.max ? limits.max : (input < limits.min ? limits.min : input));
   }
 };
