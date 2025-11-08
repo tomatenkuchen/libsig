@@ -1,18 +1,20 @@
-/** @file filter_moving_average.hpp
-    @brief signal filter with PT1 characteristic
-    @author Timo Werner
-    @date 2023-02-15
-*/
+/**
+ * @file filter_moving_average.hpp
+ * @brief signal filter with PT1 characteristic
+ * @author Timo Werner
+ * @date 2023-02-15
+ */
 
 #pragma once
-#include <cstdint>
+
 #include <concepts>
+#include <cstdint>
 #include <type_traits>
 
-namespace sig{
+namespace sig {
 
 template <typename T>
-requires std::integral<T> || std::floating_point<T>
+  requires std::integral<T> || std::floating_point<T>
 class MovingAverage {
  public:
   MovingAverage(T initial_value, T scale)

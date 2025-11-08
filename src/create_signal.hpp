@@ -1,21 +1,24 @@
+/**
+ * @file signal.hpp
+ * @brief signal creation from parameter
+ */
+
+#pragma once
+
 #include <units/isq/si/frequency.h>
 #include <units/isq/si/time.h>
-#include <units/generic/dimensionless.h>
 
 #include <algorithm>
 #include <cmath>
 #include <numbers>
 #include <ranges>
+#include <stdexcept>
 #include <vector>
 
 using namespace units::isq;
 using namespace units::aliases::isq::si;
 
-enum class SignalType{
-  Sinus,
-  Rectangular,
-  Triangular
-};
+enum class SignalType { Sinus, Rectangular, Triangular };
 
 template <typename T>
 constexpr std::vector<T> create_signal(SignalType t, int number_of_samples,
@@ -31,7 +34,7 @@ constexpr std::vector<T> create_signal(SignalType t, int number_of_samples,
     return res;
   };
 
-  auto filler_rectangular = [&] () mutable {
+  auto filler_rectangular = [&]() mutable {
     s<double> const t_period = 1 / f;
     s<double> const t_sample =
         duration * n / number_of_samples + t_period * phase / 256;
@@ -40,12 +43,14 @@ constexpr std::vector<T> create_signal(SignalType t, int number_of_samples,
     return (t_mod / t_period).number() >= 0.5 ? amplitude : -amplitude;
   };
 
-  auto filler_triangular = [&] () mutable {
+  auto filler_triangular = [&]() mutable {
     s<double> const t_period = 1 / f;
-    s<double> const t_sample = duration * n / number_of_samples + t_period * phase / 256;
+    s<double> const t_sample =
+        duration * n / number_of_samples + t_period * phase / 256;
     n++;
     auto const t_mod = std::fmod(t_sample.number(), t_period.number());
-    auto const triangle = std::abs(t_mod - (t_period.number() / 2)) - t_period.number() / 4;
+    auto const triangle =
+        std::abs(t_mod - (t_period.number() / 2)) - t_period.number() / 4;
     auto const scaled_triangle = triangle * 4 / t_period.number() * amplitude;
     return scaled_triangle;
   };
