@@ -38,6 +38,11 @@ target_compile_features(${CONAN_PROJECT_NAME}
     cxx_std_23
 )
 
+target_link_libraries(${CONAN_PROJECT_NAME}
+  INTERFACE
+    mp-units::mp-units
+)
+
 # define public headers. only those are in the installation package
 file(GLOB header_files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
 set_target_properties(${CONAN_PROJECT_NAME}

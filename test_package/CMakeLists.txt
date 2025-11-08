@@ -11,11 +11,10 @@ project(PackageTest CXX)
 ###############################################################################
 # find dependencies
 find_program(CMAKE_CXX_CPPCHECK cppcheck REQUIRED)
-find_package(mp-units REQUIRED)
 find_package(libsig CONFIG REQUIRED)
 find_package(Catch REQUIRED)
 
-cppcheck configuration
+# cppcheck configuration
 list(
     APPEND CMAKE_CXX_CPPCHECK
       "--enable=all"

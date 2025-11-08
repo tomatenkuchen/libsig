@@ -13,6 +13,7 @@ class libsigTestConan(ConanFile):
         self.requires(self.tested_reference_str)
         self.tool_requires("cmake/4.1.2")
         self.tool_requires("ninja/1.13.1")
+        self.tool_requires("cppcheck/2.18.3")
         self.test_requires("catch2/3.11.0")
 
     def generate(self):

@@ -27,6 +27,8 @@ class libsigRecipe(ConanFile):
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = "CMakeLists.txt", "src/*", "include/*", "docs/*"
 
+    hash = None
+
     def set_version(self):
         git = Git(self, self.recipe_folder)
         self.version = git.run("describe --tags").split('-')[0]
@@ -80,4 +82,7 @@ class libsigRecipe(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = [self.name]
+        self.cpp_info.bindirs = []
+        self.cpp_info.libdirs = []
+        self.cpp_info.includedirs = ["include"]
+        self.cpp_info.requires = ["mp-units::mp-units"]
