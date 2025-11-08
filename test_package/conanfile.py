@@ -39,5 +39,5 @@ class libsigTestConan(ConanFile):
 
     def test(self):
         if can_run(self):
-            cmd = Path(self.cpp.build.bindir) / "example"
+            cmd = Path(self.cpp.build.bindir) / "tests"
             self.run(cmd, env="conanrun")

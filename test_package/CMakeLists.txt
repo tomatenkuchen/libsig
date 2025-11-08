@@ -23,18 +23,18 @@ list(
 
 ###############################################################################
 # config target
-add_executable(test
+add_executable(tests
   src/test_controller_pid.cpp
   src/test_filter_moving_average.cpp
   src/test_filter_moving_average.cpp
 )
 
-target_compile_features(test
+target_compile_features(tests
   PRIVATE
     cxx_std_23
 )
 
-target_link_libraries(test
+target_link_libraries(tests
   PRIVATE
     libsig::libsig
     Catch2::Catch2WithMain
@@ -43,4 +43,4 @@ target_link_libraries(test
 ###############################################################################
 # tests
 include(CTest)
-add_test(NAME test COMMAND test)
+add_test(NAME tests COMMAND tests)
