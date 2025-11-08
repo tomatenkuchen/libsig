@@ -19,6 +19,8 @@ list(
     APPEND CMAKE_CXX_CPPCHECK
       "--enable=all"
       "--cppcheck-build-dir=${CMAKE_BINARY_DIR}"
+      "--suppress=missingIncludeSystem"
+      "--suppress=missingInclude"
 )
 
 ###############################################################################
